@@ -29,17 +29,18 @@ public class QuickHullFrame extends JFrame{
 	private QuickHullPanel quickHullPanel;					// Panel donde se dibujar� el camino.
 	private Timer temporizador;								// Temporizador utilizado en la animaci�n.
 
-	public final int DEFAULT_POINTS = 200;
+	private  int npoints = 500;
 	public final Color DEFAULT_COLOR = Color.RED;
-	public final int DELAY = 10;
+	private  int delay = 10;
 	
-	public QuickHullFrame() {
+	public QuickHullFrame(int npoints, int delay) {
 		setButtonsPanel(new JPanel());
 		setInicializar(new JButton("Inicializar"));
-		
+		setNpoints(npoints);
+		setDelay(delay);
 		setStartStop(new JButton("Ejecutar"));
 		setQuickHullPanel(new QuickHullPanel());
-		setTemporizador(new Timer(DELAY, new TimerHandler()));
+		setTemporizador(new Timer(getDelay(), new TimerHandler()));
 		setSiguiente(new JButton("Siguiente"));
 		
 		getInicializar().addActionListener(new ButtonsHandler());
@@ -62,7 +63,7 @@ public class QuickHullFrame extends JFrame{
 	
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
-		getQuickHullPanel().initialize(DEFAULT_POINTS);
+		getQuickHullPanel().initialize(getNpoints());
 	}
 	
 	public QuickHullPanel getQuickHullPanel() {
@@ -115,6 +116,23 @@ public class QuickHullFrame extends JFrame{
 		this.temporizador = temporizador;
 	}
 
+	
+	public int getNpoints() {
+		return npoints;
+	}
+
+	public void setNpoints(int npoints) {
+		this.npoints = npoints;
+	}
+
+	public int getDelay() {
+		return delay;
+	}
+
+	public void setDelay(int delay) {
+		this.delay = delay;
+	}
+
 
 	/**
 	 * Clase utilizada para el manejo de los botones.
@@ -136,7 +154,7 @@ public class QuickHullFrame extends JFrame{
 				}
 			}
 			 if(e.getSource() == getInicializar()) {
-				 getQuickHullPanel().initialize(DEFAULT_POINTS);
+				 getQuickHullPanel().initialize(getNpoints());
 				 getTemporizador().stop();
 				 getStartStop().setText("Ejecutar");
 				 repaint();
@@ -144,8 +162,8 @@ public class QuickHullFrame extends JFrame{
 			else if (e.getSource() == getSiguiente()) {
 				getTemporizador().stop();
 				getStartStop().setText("Ejecutar");
-				getQuickHullPanel().nextStep();
-			}
+				getQuickHullPanel().nextSolution();
+				}
 		
 		}
 		
@@ -181,7 +199,7 @@ public class QuickHullFrame extends JFrame{
 
 		@Override
 		public void componentResized(ComponentEvent arg0) {
-			 getQuickHullPanel().initialize(DEFAULT_POINTS);
+			 getQuickHullPanel().initialize(getNpoints());
 			 getTemporizador().stop();
 			 getStartStop().setText("Ejecutar");
 			 repaint();	
