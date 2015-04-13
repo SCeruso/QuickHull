@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GraphicQuickHull {
 	private QuickHull quickHull;
@@ -14,10 +16,12 @@ public class GraphicQuickHull {
 	private int index;
 	private int pointIndex;
 	private CoordinatesTransformer transformer;
+	private Map<Point,GraphicPoint> graphicPoints;
 	private ArrayList<Point> upperPoints;
 	private ArrayList<Point> lowerPoints;
 	private ArrayList<Point> innerPoints;
 	private ArrayList<Point> unanalyzedPoints;
+	public static final int POINT_RADIUS = 3;
 	
 	public GraphicQuickHull(int npoints, int left, int up, int right, int bot,  CoordinatesTransformer ctransformer) {
 		int i = 0;
@@ -32,8 +36,9 @@ public class GraphicQuickHull {
 		setLowerPoints(new ArrayList<Point>());
 		setUnanalyzedPoints(new ArrayList<Point>());
 		setInnerPoints(new ArrayList<Point>());
-		
+		setGraphicPoints(new HashMap <Point, GraphicPoint>());
 		getResultList().add(new PartialSolution(getQuickHull().getTotalPoints(), new ArrayList<Point>(), new ArrayList<Point>(), new ArrayList<Point>()));
+		
 		do {
 			i++;
 			getQuickHull().calculate(i);
@@ -49,6 +54,8 @@ public class GraphicQuickHull {
 		getQuickHull().calculate(i);
 		getResultList().add(new PartialSolution(getQuickHull().getAnalyzedPoints(), getQuickHull().getUpperPoints(), getQuickHull().getLowerPoints(),getQuickHull().getResult()));
 		setUnanalyzedPoints(getQuickHull().getTotalPoints());
+		addGraphicPoints(getQuickHull().getTotalPoints(), Color.BLACK);
+		setPointIndex(getResultList().get(0).getTotalPoints().size() - 1);
 	}
 	
 	public void drawAll(Graphics g1) {
@@ -89,7 +96,7 @@ public class GraphicQuickHull {
 	}
 	
 	public void drawPoints(Graphics g) {
-		GraphicPoint graphicPoint = new GraphicPoint(new Point(0, 0), Color.BLACK, 3, new CoordinatesTransformer(1, 1));
+		GraphicPoint graphicPoint = new GraphicPoint(new Point(0, 0), Color.BLACK, POINT_RADIUS, new CoordinatesTransformer(1, 1));
 		
 	/*	getUnanalyzedPoints().removeAll(getLowerPoints());
 		getUnanalyzedPoints().removeAll(getUpperPoints());
@@ -98,7 +105,7 @@ public class GraphicQuickHull {
 			graphicPoint.setPoint(getUnanalyzedPoints().get(i));
 			graphicPoint.drawPoint(g.create());
 		}*/
-		
+	/*	
 		getUpperPoints().removeAll(getResultList().get(getIndex()).getTotalPoints());
 		getUpperPoints().addAll(getResultList().get(getIndex()).getUpperPoints());
 		
@@ -128,12 +135,17 @@ public class GraphicQuickHull {
 			graphicPoint.setPoint(getInnerPoints().get(i));
 			graphicPoint.drawPoint(g.create());
 		}
-		
+		*/
+		for (int i = 0; i < getQuickHull().getTotalPoints().size(); i++) {
+			getGraphicPoints().get(getQuickHull().getTotalPoints().get(i)).drawPoint(g.create());
+		}
+	}
 	
 	
-		
-		
-		
+	public void addGraphicPoints(ArrayList<Point> points, Color color) {
+		for (int i = 0; i < points.size(); i++) {
+			getGraphicPoints().put(points.get(i),new GraphicPoint(points.get(i), color, POINT_RADIUS, new CoordinatesTransformer(1, 1)));
+		}
 	}
 	public QuickHull getQuickHull() {
 		return quickHull;
@@ -208,10 +220,37 @@ public class GraphicQuickHull {
 	}
 	
 	public void addIndex() {
-		setIndex(getIndex() + 1);
+		setPointIndex(getPointIndex() + 1);
+		GraphicPoint pointToChange;
 		
-		if (getIndex() >= getResultList().size())
+		if (getPointIndex() >= getResultList().get(getIndex()).getTotalPoints().size()) {
+			setPointIndex(0);
+			setIndex(getIndex() + 1);
+		}
+		
+		
+		if (getIndex() >= getResultList().size()) {
 			setIndex(getResultList().size() - 1);
+		}
+		
+		pointToChange = getGraphicPoints().get(getResultList().get(getIndex()).getTotalPoints().get(getPointIndex()));
+		
+		if (getResultList().get(getIndex()).getUpperPoints().contains(pointToChange.getPoint())) {
+			pointToChange.setColor(Color.RED);
+		}
+		else if (getResultList().get(getIndex()).getLowerPoints().contains(pointToChange.getPoint())) {
+				pointToChange.setColor(Color.BLUE);
+		}
+		else
+			pointToChange.setColor(Color.GRAY);
+	}
+
+	public Map<Point, GraphicPoint> getGraphicPoints() {
+		return graphicPoints;
+	}
+
+	public void setGraphicPoints(Map<Point, GraphicPoint> graphicPoints) {
+		this.graphicPoints = graphicPoints;
 	}
 	
 }
