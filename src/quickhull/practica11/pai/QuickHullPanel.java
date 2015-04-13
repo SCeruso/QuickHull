@@ -25,7 +25,7 @@ public class QuickHullPanel extends JPanel{
 	}
 
 	public void nextStep() {
-		getQuickHull().setIndex(getQuickHull().getIndex() + 1);
+		getQuickHull().addIndex();
 		repaint();
 	}
 	public GraphicQuickHull getQuickHull() {

@@ -25,6 +25,15 @@ public class Main {
 		 
 		
 		// frame.initialize();
+		 /*ArrayList<Point> uno = new ArrayList<Point>();
+		 ArrayList<Point> dos;
+		 
+		 uno.add(new Point(2, 1));
+		 
+		 dos = new ArrayList<Point>(uno);
+		 
+		 uno.clear();
+		 System.out.println("Hola");*/
 	}
 
 }

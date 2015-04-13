@@ -14,12 +14,18 @@ import java.util.ArrayList;
 public class QuickHull {
 	private ArrayList<Point> totalPoints;
 	private ArrayList<Point> result;
+	private ArrayList<Point> upperPoints;
+	private ArrayList<Point> lowerPoints;
+	private ArrayList<Point> analyzedPoints;
 	private int recursionLimit;
 	
 	public QuickHull(int npoints, int left, int up, int right, int bot) {
 		setTotalPoints(new ArrayList<Point>());
 		setResult(new ArrayList<Point>());
-	
+		setUpperPoints(new ArrayList<Point>());
+		setLowerPoints(new ArrayList<Point>());
+		setAnalyzedPoints(new ArrayList<Point>());
+		
 		RandomPointGenerator generator = new RandomPointGenerator(left, up, right, bot);
 		
 		for (int i = 0; i < npoints; i++)
@@ -27,12 +33,17 @@ public class QuickHull {
 	}
 
 	public QuickHull() {
-	
+		setTotalPoints(new ArrayList<Point>());
+		setResult(new ArrayList<Point>());
+		setUpperPoints(new ArrayList<Point>());
+		setLowerPoints(new ArrayList<Point>());
+		setAnalyzedPoints(new ArrayList<Point>());
 	}
 	
 	public void calculate(int n) {
 		int minX = 0;
 		int maxX = 0;
+
 		ArrayList<Point> upperPoints;
 		ArrayList<Point> lowerPoints;
 		recursionLimit = n;
@@ -48,7 +59,13 @@ public class QuickHull {
 	
 		upperPoints = upperPoints(getTotalPoints(), getTotalPoints().get(minX), getTotalPoints().get(maxX));
 		lowerPoints = lowerPoints(getTotalPoints(), getTotalPoints().get(minX), getTotalPoints().get(maxX));
+		
 		recursionLimit--;
+		
+		setUpperPoints(upperPoints);
+		setLowerPoints(lowerPoints);
+		setAnalyzedPoints(getTotalPoints());
+		
 		recursiveUpperQuickHull(upperPoints, getTotalPoints().get(minX), getTotalPoints().get(maxX));
 		result.add(getTotalPoints().get(minX));
 		recursiveLowerQuickHull(lowerPoints, getTotalPoints().get(minX), getTotalPoints().get(maxX));
@@ -78,7 +95,9 @@ public class QuickHull {
 			else
 				upperLefts = leftsPoints(pointList, farthest, p1);
 			
-			
+			setUpperPoints(upperLefts);
+			setLowerPoints(upperRights);
+			setAnalyzedPoints(pointList);
 			//Llamada recursiva.
 			recursiveUpperQuickHull(upperRights, farthest, p2);
 			
@@ -111,7 +130,11 @@ public class QuickHull {
 				lowerLefts = lowerPoints(pointList, farthest, p1);
 			else
 				lowerLefts = leftsPoints(pointList, farthest, p1);
-
+			
+			setUpperPoints(lowerLefts);
+			setLowerPoints(lowerRights);
+			setAnalyzedPoints(pointList);
+				
 			//Llamada recursiva.
 			recursiveLowerQuickHull(lowerLefts, p1, farthest);
 	
@@ -212,5 +235,30 @@ public class QuickHull {
 	public void setTotalPoints(ArrayList<Point> totalPoints) {
 		this.totalPoints = totalPoints;
 	}
+
+	public ArrayList<Point> getUpperPoints() {
+		return upperPoints;
+	}
+
+	public void setUpperPoints(ArrayList<Point> upperPoints) {
+		this.upperPoints = upperPoints;
+	}
+
+	public ArrayList<Point> getLowerPoints() {
+		return lowerPoints;
+	}
+
+	public void setLowerPoints(ArrayList<Point> lowerPoints) {
+		this.lowerPoints = lowerPoints;
+	}
+
+	public ArrayList<Point> getAnalyzedPoints() {
+		return analyzedPoints;
+	}
+
+	public void setAnalyzedPoints(ArrayList<Point> analyzedPoints) {
+		this.analyzedPoints = analyzedPoints;
+	}
+	
 	
 }
