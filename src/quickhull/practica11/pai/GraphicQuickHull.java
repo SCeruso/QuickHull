@@ -125,7 +125,7 @@ public class GraphicQuickHull {
 	 * @param points	Puntos añadir.
 	 * @param color		Color de los puntos.
 	 */
-	public void addGraphicPoints(ArrayList<Point> points, Color color) {
+	private void addGraphicPoints(ArrayList<Point> points, Color color) {
 		for (int i = 0; i < points.size(); i++) {
 			getGraphicPoints().put(points.get(i),new GraphicPoint(points.get(i), color, POINT_RADIUS, new CoordinatesTransformer(1, 1)));
 		}

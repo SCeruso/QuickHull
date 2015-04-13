@@ -79,7 +79,7 @@ public class QuickHull {
 	 * @param p1 Primer punto de la recta.
 	 * @param p2 Segundo punto de la recta.
 	 */
-	public void recursiveUpperQuickHull(ArrayList<Point> pointList, Point p1, Point p2) {
+	private void recursiveUpperQuickHull(ArrayList<Point> pointList, Point p1, Point p2) {
 		ArrayList<Point> upperRights = null;
 		ArrayList<Point> upperLefts = null;
 		Line lineR;
@@ -121,7 +121,7 @@ public class QuickHull {
 	 * @param p1 Primer punto de la recta.
 	 * @param p2 Segundo punto de la recta.
 	 */
-	public void recursiveLowerQuickHull(ArrayList<Point> pointList, Point p1, Point p2) {
+	private void recursiveLowerQuickHull(ArrayList<Point> pointList, Point p1, Point p2) {
 		ArrayList<Point> lowerRights = null;
 		ArrayList<Point> lowerLefts = null;
 		Line lineR;
@@ -162,7 +162,7 @@ public class QuickHull {
 	 * @param recta
 	 * @return
 	 */
-	public Point farthestPoint(ArrayList<Point> pointList, Line recta) {
+	private Point farthestPoint(ArrayList<Point> pointList, Line recta) {
 		int farthest = 0;
 		for (int i = 0; i < pointList.size(); i++) {
 			if (recta.pointDistance(pointList.get(farthest)) < recta.pointDistance(pointList.get(i)))
@@ -179,7 +179,7 @@ public class QuickHull {
 	 * @param p2				Segundo Punto.
 	 * @return
 	 */
-	public ArrayList<Point> upperPoints(ArrayList<Point> totalPointList, Point p1, Point p2) {
+	private ArrayList<Point> upperPoints(ArrayList<Point> totalPointList, Point p1, Point p2) {
 		ArrayList<Point> pointList = new ArrayList<Point>();
 		Line recta = new Line(p1, p2);
 		Boolean eval;
@@ -198,7 +198,7 @@ public class QuickHull {
 	 * @param p2				Segundo Punto.
 	 * @return
 	 */
-	public ArrayList<Point> lowerPoints(ArrayList<Point> totalPointList, Point p1, Point p2) {
+	private ArrayList<Point> lowerPoints(ArrayList<Point> totalPointList, Point p1, Point p2) {
 		ArrayList<Point> pointList = new ArrayList<Point>();
 		Line recta = new Line(p1, p2);
 		Boolean eval;
@@ -219,7 +219,7 @@ public class QuickHull {
 	 * @param p2				Segundo Punto.
 	 * @return
 	 */
-	public ArrayList<Point> leftsPoints(ArrayList<Point> totalPointList, Point p1, Point p2) {
+	private ArrayList<Point> leftsPoints(ArrayList<Point> totalPointList, Point p1, Point p2) {
 		ArrayList<Point> pointList = new ArrayList<Point>();
 		Line recta = new Line(p1, p2);
 		
@@ -238,7 +238,7 @@ public class QuickHull {
 	 * @param p2				Segundo Punto.
 	 * @return
 	 */
-	public ArrayList<Point> rightsPoints(ArrayList<Point> totalPointList, Point p1, Point p2) {
+	private ArrayList<Point> rightsPoints(ArrayList<Point> totalPointList, Point p1, Point p2) {
 		ArrayList<Point> pointList = new ArrayList<Point>();
 		Line recta = new Line(p1, p2);
 		
@@ -255,7 +255,7 @@ public class QuickHull {
 	 * @param linea
 	 * @return
 	 */
-	public Boolean pointIsOverLine(Point p, Line linea){
+	private Boolean pointIsOverLine(Point p, Line linea){
 		Double evaluation = linea.evaluate(p.getX());
 		try {
 			evaluation = (double) Math.round(evaluation);	
@@ -286,7 +286,7 @@ public class QuickHull {
 		return totalPoints;
 	}
 
-	public void setTotalPoints(ArrayList<Point> totalPoints) {
+	private void setTotalPoints(ArrayList<Point> totalPoints) {
 		this.totalPoints = totalPoints;
 	}
 
@@ -294,7 +294,7 @@ public class QuickHull {
 		return upperPoints;
 	}
 
-	public void setUpperPoints(ArrayList<Point> upperPoints) {
+	private void setUpperPoints(ArrayList<Point> upperPoints) {
 		this.upperPoints = upperPoints;
 	}
 
@@ -302,7 +302,7 @@ public class QuickHull {
 		return lowerPoints;
 	}
 
-	public void setLowerPoints(ArrayList<Point> lowerPoints) {
+	private void setLowerPoints(ArrayList<Point> lowerPoints) {
 		this.lowerPoints = lowerPoints;
 	}
 
@@ -310,7 +310,7 @@ public class QuickHull {
 		return analyzedPoints;
 	}
 
-	public void setAnalyzedPoints(ArrayList<Point> analyzedPoints) {
+	private void setAnalyzedPoints(ArrayList<Point> analyzedPoints) {
 		this.analyzedPoints = analyzedPoints;
 	}
 	
