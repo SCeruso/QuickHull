@@ -12,12 +12,12 @@ import java.util.ArrayList;
  * Universiad de La Laguna, Santa Cruz de Tenerife, EspaÃ±a.
  */
 public class QuickHull {
-	private ArrayList<Point> totalPoints;
-	private ArrayList<Point> result;
-	private ArrayList<Point> upperPoints;
-	private ArrayList<Point> lowerPoints;
-	private ArrayList<Point> analyzedPoints;
-	private int recursionLimit;
+	private ArrayList<Point> totalPoints;						// Total de puntos de la nube.
+	private ArrayList<Point> result;							// Puntos pertenecientes a la envolvente.
+	private ArrayList<Point> upperPoints;						// Últimos puntos "superiores" que se han evaluado.
+	private ArrayList<Point> lowerPoints;						// Últimos puntos "inferiores" que se han evaluado.
+	private ArrayList<Point> analyzedPoints;					// Últimos puntos evaluados.
+	private int recursionLimit;									// Limite de recursion, utilizado para acotar el número de llamadas recursivas que se desea hacer.
 	
 	public QuickHull(int npoints, int left, int up, int right, int bot) {
 		setTotalPoints(new ArrayList<Point>());
@@ -39,7 +39,10 @@ public class QuickHull {
 		setLowerPoints(new ArrayList<Point>());
 		setAnalyzedPoints(new ArrayList<Point>());
 	}
-	
+	/**
+	 * Calcula la envolvente total o hasta que se hayan hecho n llamadas recursivas.
+	 * @param n
+	 */
 	public void calculate(int n) {
 		int minX = 0;
 		int maxX = 0;
@@ -70,7 +73,12 @@ public class QuickHull {
 		result.add(getTotalPoints().get(minX));
 		recursiveLowerQuickHull(lowerPoints, getTotalPoints().get(minX), getTotalPoints().get(maxX));
 	}
-	
+	/**
+	 * Calcula recursivamente la parte superior.
+	 * @param pointList Lista de puntos a analizar
+	 * @param p1 Primer punto de la recta.
+	 * @param p2 Segundo punto de la recta.
+	 */
 	public void recursiveUpperQuickHull(ArrayList<Point> pointList, Point p1, Point p2) {
 		ArrayList<Point> upperRights = null;
 		ArrayList<Point> upperLefts = null;
@@ -107,7 +115,12 @@ public class QuickHull {
 	
 		}
 	}
-	
+	/**
+	 * Calcula recursivamente la parte inferior.
+	 * @param pointList Lista de puntos a analizar
+	 * @param p1 Primer punto de la recta.
+	 * @param p2 Segundo punto de la recta.
+	 */
 	public void recursiveLowerQuickHull(ArrayList<Point> pointList, Point p1, Point p2) {
 		ArrayList<Point> lowerRights = null;
 		ArrayList<Point> lowerLefts = null;
@@ -143,7 +156,12 @@ public class QuickHull {
 			recursiveLowerQuickHull(lowerRights, farthest, p2);
 		}
 	}
-	
+	/**
+	 * Calcula el punto mas lejano de la lista de puntos a la recta.
+	 * @param pointList Lista de puntos.
+	 * @param recta
+	 * @return
+	 */
 	public Point farthestPoint(ArrayList<Point> pointList, Line recta) {
 		int farthest = 0;
 		for (int i = 0; i < pointList.size(); i++) {
@@ -154,7 +172,13 @@ public class QuickHull {
 		return pointList.get(farthest);
 	}
 	
-	
+	/**
+	 * Calcula aquellos puntos que estan por arriba de la recta formada por p1 y p2.
+	 * @param totalPointList 	Lista de puntos.
+	 * @param p1				Primer punto.
+	 * @param p2				Segundo Punto.
+	 * @return
+	 */
 	public ArrayList<Point> upperPoints(ArrayList<Point> totalPointList, Point p1, Point p2) {
 		ArrayList<Point> pointList = new ArrayList<Point>();
 		Line recta = new Line(p1, p2);
@@ -167,7 +191,13 @@ public class QuickHull {
 		
 		return pointList;
 	}
-	
+	/**
+	 * Calcula aquellos puntos que estan por debajo de la recta formada por p1 y p2.
+	 * @param totalPointList 	Lista de puntos.
+	 * @param p1				Primer punto.
+	 * @param p2				Segundo Punto.
+	 * @return
+	 */
 	public ArrayList<Point> lowerPoints(ArrayList<Point> totalPointList, Point p1, Point p2) {
 		ArrayList<Point> pointList = new ArrayList<Point>();
 		Line recta = new Line(p1, p2);
@@ -180,6 +210,15 @@ public class QuickHull {
 		
 		return pointList;
 	}
+	
+	/**
+	 * Calcula aquellos puntos que estan a la izquierda de la recta formada por p1 y p2, solo para cuando la recta es
+	 *  de la forma x = q.
+	 * @param totalPointList 	Lista de puntos.
+	 * @param p1				Primer punto.
+	 * @param p2				Segundo Punto.
+	 * @return
+	 */
 	public ArrayList<Point> leftsPoints(ArrayList<Point> totalPointList, Point p1, Point p2) {
 		ArrayList<Point> pointList = new ArrayList<Point>();
 		Line recta = new Line(p1, p2);
@@ -191,7 +230,14 @@ public class QuickHull {
 		
 		return pointList;
 	}
-	
+	/**
+	 * Calcula aquellos puntos que estan a la derecha de la recta formada por p1 y p2, solo para cuando la recta es
+	 *  de la forma x = q.
+	 * @param totalPointList 	Lista de puntos.
+	 * @param p1				Primer punto.
+	 * @param p2				Segundo Punto.
+	 * @return
+	 */
 	public ArrayList<Point> rightsPoints(ArrayList<Point> totalPointList, Point p1, Point p2) {
 		ArrayList<Point> pointList = new ArrayList<Point>();
 		Line recta = new Line(p1, p2);
@@ -203,7 +249,12 @@ public class QuickHull {
 		
 		return pointList;
 	}
-	
+	/**
+	 * True si el punto está por encima de la recta.
+	 * @param p
+	 * @param linea
+	 * @return
+	 */
 	public Boolean pointIsOverLine(Point p, Line linea){
 		Double evaluation = linea.evaluate(p.getX());
 		try {
@@ -220,6 +271,9 @@ public class QuickHull {
 		else 
 			return false;
 	}
+	/**
+	 * ********************************************************************* Getters ands Setters *****************************************************************************************************************
+	 */
 	public ArrayList<Point> getResult() {
 		return result;
 	}

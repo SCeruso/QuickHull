@@ -1,5 +1,11 @@
 package quickhull.practica11.pai;
-
+/**
+ * 
+ * @author Sabato Ceruso
+ * mail: sab7093@gmail.com
+ * Programaci√≥n de aplicaciones interactivas.
+ * Universiad de La Laguna, Santa Cruz de Tenerife, Espa√±a.
+ */
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,16 +15,30 @@ import java.awt.Polygon;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Clase para representar graficamente el algoritmo quickhull.
+ * @author Sabato
+ *
+ */
 public class GraphicQuickHull {
-	private QuickHull quickHull;
-	private ArrayList<PartialSolution> resultList;
-	private int index;
-	private int pointIndex;
-	private CoordinatesTransformer transformer;
-	private Map<Point,GraphicPoint> graphicPoints;
-	public static final int POINT_RADIUS = 3;
+	private QuickHull quickHull;							// Algoritmo quickhull.
+	private ArrayList<PartialSolution> resultList;			// Lista de resultados parciales a simular.
+	private int index;										// Indice del resultado actualmente simulado.
+	private int pointIndex;									// Indice del ultimo punto pintado.
+	private CoordinatesTransformer transformer;				// Transformador de coordenadas.
+	private Map<Point,GraphicPoint> graphicPoints;			// Lista de puntos a pintar.
+	public static final int POINT_RADIUS = 3;				// Radio de los puntos.
 	
+	/**
+	 * Crea la estructura para simular el algoritmo quickhull con n puntos que se calcularan de forma aleatoria.
+	 * Calculara ademas cada una de las soluciones parciales necesarias para la simulacion.
+	 * @param npoints		Numero de puntos de la simulacion.
+	 * @param left			Margen izquierdo donde representar la solucion.
+	 * @param up			Margen superior donde representar la solucion.
+	 * @param right			Margen derecho donde representar la solucion.
+	 * @param bot			Margen inferior donde representar la solucion.
+	 * @param ctransformer	Conversor de coordendadas.
+	 */
 	public GraphicQuickHull(int npoints, int left, int up, int right, int bot,  CoordinatesTransformer ctransformer) {
 		int i = 0;
 		int j = 0;
@@ -48,7 +68,10 @@ public class GraphicQuickHull {
 		addGraphicPoints(getQuickHull().getTotalPoints(), Color.BLACK);
 		setPointIndex(getResultList().get(0).getTotalPoints().size() - 1);
 	}
-	
+	/**
+	 * Dibuja el "fotograma".
+	 * @param g1
+	 */
 	public void drawAll(Graphics g1) {
 		Polygon polygon = new Polygon();
 		Graphics2D g = (Graphics2D) g1;
@@ -72,7 +95,10 @@ public class GraphicQuickHull {
 		}
 
 	}
-	
+	/**
+	 * A eliminar.
+	 * @param g
+	 */
 	public void drawActual(Graphics g) {
 		Polygon polygon = new Polygon();
 		
@@ -85,18 +111,28 @@ public class GraphicQuickHull {
 		
 		g.drawPolygon(polygon);
 	}
-	
+	/**
+	 * Dibuja los puntos.
+	 * @param g
+	 */
 	public void drawPoints(Graphics g) {
 		for (int i = 0; i < getQuickHull().getTotalPoints().size(); i++) 
 			getGraphicPoints().get(getQuickHull().getTotalPoints().get(i)).drawPoint(g.create());
 	}
 	
-	
+	/**
+	 * AÒade los puntos en la lista a la lista de puntos graficos con el color especificado.
+	 * @param points	Puntos aÒadir.
+	 * @param color		Color de los puntos.
+	 */
 	public void addGraphicPoints(ArrayList<Point> points, Color color) {
 		for (int i = 0; i < points.size(); i++) {
 			getGraphicPoints().put(points.get(i),new GraphicPoint(points.get(i), color, POINT_RADIUS, new CoordinatesTransformer(1, 1)));
 		}
 	}
+	/**
+	 * ********************************************************************* Getters ands Setters *****************************************************************************************************************
+	 */
 	public QuickHull getQuickHull() {
 		return quickHull;
 	}
@@ -137,7 +173,16 @@ public class GraphicQuickHull {
 	public void setPointIndex(int pointIndex) {
 		this.pointIndex = pointIndex;
 	}
-	
+	public Map<Point, GraphicPoint> getGraphicPoints() {
+		return graphicPoints;
+	}
+
+	public void setGraphicPoints(Map<Point, GraphicPoint> graphicPoints) {
+		this.graphicPoints = graphicPoints;
+	}
+	/**
+	 * Calcula el color de los puntos en el siguiente "fotograma".
+	 */
 	public void nextStep() {
 		setPointIndex(getPointIndex() + 1);
 		GraphicPoint pointToChange;
@@ -164,6 +209,9 @@ public class GraphicQuickHull {
 		else
 			pointToChange.setColor(Color.GRAY);
 	}
+	/**
+	 * Calcula el color de los puntos para la siguiente solucion.
+	 */
 	public void nextSolution() {
 		int actual = getIndex();
 		int np = 0;
@@ -175,12 +223,4 @@ public class GraphicQuickHull {
 		
 		
 	}
-	public Map<Point, GraphicPoint> getGraphicPoints() {
-		return graphicPoints;
-	}
-
-	public void setGraphicPoints(Map<Point, GraphicPoint> graphicPoints) {
-		this.graphicPoints = graphicPoints;
-	}
-	
 }

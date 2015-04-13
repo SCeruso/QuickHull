@@ -1,13 +1,23 @@
 package quickhull.practica11.pai;
-
+/**
+ * 
+ * @author Sabato Ceruso
+ * mail: sab7093@gmail.com
+ * Programación de aplicaciones interactivas.
+ * Universiad de La Laguna, Santa Cruz de Tenerife, España.
+ */
 import java.awt.Point;
 import java.util.ArrayList;
-
+/**
+ * Clase que representa soluciones parciales del algoritmo quickhull.
+ * @author Sabato
+ *
+ */
 public class PartialSolution {
-	private ArrayList<Point> totalPoints;
-	private ArrayList<Point> upperPoints;
-	private ArrayList<Point> lowerPoints;
-	private ArrayList<Point> result;
+	private ArrayList<Point> totalPoints;		// Total de puntos analizados en esta solucion.
+	private ArrayList<Point> upperPoints;		// Puntos superiores.
+	private ArrayList<Point> lowerPoints;		// Puntos inferiores.
+	private ArrayList<Point> result;			// Resultado.
 	
 	public PartialSolution(ArrayList<Point> totals, ArrayList<Point> uppers, ArrayList<Point> lowers, ArrayList<Point> result) {
 		setTotalPoints(totals);
@@ -15,7 +25,9 @@ public class PartialSolution {
 		setLowerPoints(lowers);
 		setResult(result);
 	}
-
+	/**
+	 * ********************************************************************* Getters ands Setters *****************************************************************************************************************
+	 */
 	public ArrayList<Point> getTotalPoints() {
 		return totalPoints;
 	}
@@ -47,7 +59,5 @@ public class PartialSolution {
 	public void setResult(ArrayList<Point> result) {
 		this.result = result;
 	}
-	
-	
 
 }

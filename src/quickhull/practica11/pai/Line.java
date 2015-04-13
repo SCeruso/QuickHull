@@ -11,8 +11,8 @@ import java.awt.Point;
  */
 
 public class Line {
-	private Double pendiente;
-	private Double ordenadaEnElOrigen;
+	private Double pendiente;					// Pendiente de la recta, null si se trata de una recta de la forma x = q.
+	private Double ordenadaEnElOrigen;			// Ordenada en el origen, representará el valor de "q" en las rectas de la forma x = q.
 	
 	/**
 	 * Crea una recta.
@@ -54,14 +54,22 @@ public class Line {
 		
 		return null;
 	}
-	
+	/**
+	 * Evalua el valor de la x.
+	 * @param x	Valor a evaluar.
+	 * @return	Valor de la funcion en ese punto, null si no pertenece al dominio.
+	 */
 	public Double evaluate(double x) {
 		if (pendiente != null)
 			return x * getPendiente() + getOrdenadaEnElOrigen();
 		else
 			return null;
 	}
-	
+	/**
+	 * Calcula la distancia de un punto a la recta.
+	 * @param p	Punto a calcular distancia.
+	 * @return Distancia del punto a la recta.
+	 */
 	public Double pointDistance(Point p) {
 		if (pendiente == null)
 			return Math.abs(ordenadaEnElOrigen - p.getX());
@@ -71,6 +79,10 @@ public class Line {
 			return num / denom;
 		}
 	}
+	/**
+	 * ********************************************************************* Getters ands Setters *****************************************************************************************************************
+	 * @return
+	 */
 	public Double getPendiente() {
 		return pendiente;
 	}

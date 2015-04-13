@@ -19,19 +19,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-
+/**
+ * CLase con la ventana para mostrar la simulacion del quickhull.
+ * @author Sabato
+ *
+ */
 public class QuickHullFrame extends JFrame{
 	private JPanel buttonsPanel;							// Panel con los botones.
-	private JButton inicializar;							// Boton que continuar� con la simulaci�n hasta el final sin mostrar la animaci�n.
-	
-	private JButton startStop;								// Boton de parar o continuar con la animaci�n.
-	private JButton siguiente;
-	private QuickHullPanel quickHullPanel;					// Panel donde se dibujar� el camino.
-	private Timer temporizador;								// Temporizador utilizado en la animaci�n.
-
-	private  int npoints = 500;
-	public final Color DEFAULT_COLOR = Color.RED;
-	private  int delay = 10;
+	private JButton inicializar;							// Boton que continuara con la simulacion hasta el final sin mostrar la animacion.
+	private JButton startStop;								// Boton de parar o continuar con la animacion.
+	private JButton siguiente;								// Boton para mostrar la siguiente subsolucion.
+	private QuickHullPanel quickHullPanel;					// Panel donde se dibujara el camino.
+	private Timer temporizador;								// Temporizador utilizado en la animacion.
+	private  int npoints = 500;								// Numero de puntos	
+	private  int delay = 10;								// Delay para la simulacion.
 	
 	public QuickHullFrame(int npoints, int delay) {
 		setButtonsPanel(new JPanel());
@@ -70,7 +71,9 @@ public class QuickHullFrame extends JFrame{
 		return quickHullPanel;
 	}
 
-	
+	/**
+	 * ********************************************************************* Getters ands Setters *****************************************************************************************************************
+	 */
 	public JButton getSiguiente() {
 		return siguiente;
 	}
@@ -182,7 +185,11 @@ public class QuickHullFrame extends JFrame{
 		}
 		
 	}
-	
+	/**
+	 * Clase utilizada para repintar cada vez que se redimensiona la ventana.
+	 * @author Sabato
+	 *
+	 */
 	class WindowHandler implements ComponentListener {
 
 		@Override

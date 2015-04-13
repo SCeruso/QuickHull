@@ -9,7 +9,11 @@ package quickhull.practica11.pai;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-
+/**
+ * Clase utilizada para pintar puntos 2D.
+ * @author Sabato
+ *
+ */
 public class GraphicPoint {
 	private Point point;
 	private Color color;
@@ -28,6 +32,10 @@ public class GraphicPoint {
 		Point tpoint = transformer.transform(getPoint());
 		g.fillOval((int)tpoint.getX() - getRadius(), (int)tpoint.getY() - getRadius(), getRadius() * 2, getRadius() * 2);
 	}
+	/**
+	 * ********************************************************************* Getters ands Setters *****************************************************************************************************************
+	 * @return
+	 */
 	public Point getPoint() {
 		return point;
 	}

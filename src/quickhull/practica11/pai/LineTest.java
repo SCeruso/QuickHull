@@ -1,5 +1,11 @@
 package quickhull.practica11.pai;
-
+/**
+ * 
+ * @author Sabato Ceruso
+ * mail: sab7093@gmail.com
+ * Programación de aplicaciones interactivas.
+ * Universiad de La Laguna, Santa Cruz de Tenerife, España.
+ */
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -37,7 +43,7 @@ public class LineTest {
 		assertEquals(recta4.getOrdenadaEnElOrigen(), 3.5, 0);
 	}
 	/**
-	 * Probamos que la evaluación unicamente con enteros 
+	 * Probamos que la evaluacion unicamente con enteros 
 	 * para la "y" se haga correctamente.
 	 */
 	@Test
@@ -59,6 +65,9 @@ public class LineTest {
 		assertEquals(result.x, 3);
 		assertEquals(result.y, 5);
 	}
+	/**
+	 * Probamos la formula de la distancia de un punto a una recta.
+	 */
 	@Test
 	public void testDistanceLinePoint() {
 		Line recta = new Line (0, 0);

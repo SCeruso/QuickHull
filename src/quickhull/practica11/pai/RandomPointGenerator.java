@@ -1,14 +1,25 @@
 package quickhull.practica11.pai;
-
+/**
+ * 
+ * @author Sabato Ceruso
+ * mail: sab7093@gmail.com
+ * Programación de aplicaciones interactivas.
+ * Universiad de La Laguna, Santa Cruz de Tenerife, España.
+ */
 import java.awt.Point;
 import java.util.Random;
 
+/**
+ * Clase generadora de puntos de forma aleatoria entre un rango fijado.
+ * @author Sabato
+ *
+ */
 public class RandomPointGenerator {
-	Random engine;
-	int leftBound;
-	int upperBound;
-	int rightBound;
-	int bottomBound;
+	Random engine;		// Motor aleatorio.
+	int leftBound;		//
+	int upperBound;		//	Rangos para las coordenadas.
+	int rightBound;		//
+	int bottomBound;	//
 	
 	public RandomPointGenerator(int left, int up, int right, int bot) {
 		setEngine(new Random());
@@ -19,6 +30,10 @@ public class RandomPointGenerator {
 		
 	}
 
+	/**
+	 * Genera un punto de forma aleatoria.
+	 * @return
+	 */
 	public Point generatePoint() {
 		int min = getLeftBound();
 		int max = getRightBound();
@@ -30,7 +45,10 @@ public class RandomPointGenerator {
 		
 		return new Point(x, y);
 	}
-	
+	/**
+	 * ******************************************************************Getters and Setters************************************************************************************************************************
+	 * @return
+	 */
 	public int getLeftBound() {
 		return leftBound;
 	}
