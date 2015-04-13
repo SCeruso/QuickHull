@@ -31,7 +31,7 @@ public class QuickHullFrame extends JFrame{
 
 	public final int DEFAULT_POINTS = 200;
 	public final Color DEFAULT_COLOR = Color.RED;
-	public final int DELAY = 200;
+	public final int DELAY = 10;
 	
 	public QuickHullFrame() {
 		setButtonsPanel(new JPanel());
